@@ -1,0 +1,53 @@
+steuerung testen {
+	per freeflight testen
+	links, rechts, oben, unten per Programm{
+		Packete mit direkten Befehlen der Parrot-Software
+		Packete zum abbrechen von anderen Befehlen
+	}
+}
+sensoreigenschaften testen {
+	sensoren vermessen {
+		internetrecherche über daten 
+		einzelne analyse der sensoren auf deren eigenschaften auf festem untergrund 
+		wirkungsgrade und stabilität und vertrauensquote feststellen: genauigkeit der gemessenen daten
+	}
+	sensoreigenschaften nutzen {
+		wie kann man verschiedene Sensoren nutzen, um genauer und stabiler zu messen?
+		kombination von sensoren
+	}
+}
+Raumgrundschnittanaylse {
+	auf einer Ebene einen kreisförmigen Grundschnitt erstellen {
+		drohne bleibt auf einem punkt (vergleich mit der unteren Kamera)
+		entfernungsmesser misst punktuelle entfernung zum objekt direkt vor der drohne
+		langsam drehen und entfernung im pc umrechnen in beobachtungspunkte
+	}
+	problematische Sektoren nachanalysieren {
+		in Safezones
+		senkrecht zum fehlerhaften Sektor
+		normale analyse starten
+	}
+	Dangerzones umgehen {
+		problematische Gegenstände{
+			Fenster
+			Stangen
+			Pflanzen
+			dünne Stiele, Drähte und Seile etc.
+		}
+		Mindestabstand zu Sektoren und problem. Gegenst.
+	}
+}
+traking und umgebungsprogramm {
+	darstellungsebene auf computer im browser {
+		zeichenebene mit linien zwischen den beobachtungspunkten
+		drohnenzeichen + drehung an position der drohne
+		Safezone: normaler weißer Hintergrund ohne Zusatz
+		Dangerzone: rote Flächen ggf mit Strafierungen(problem. Gegenst.)
+	}
+	benutzerdefinierte Parameter {
+		genauigkeit: max abstand zwischen beobachtungspunkten
+		schnelligkeit: drehgeschwindigkeit der drohne
+		groundmode: vergleich mit dem boden für genauere POSITION und drehung + HÖHE
+		wallmode: vergleich mit wandstrukturen für genauere position und DREHUNG + HÖHE
+	}
+}
