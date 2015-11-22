@@ -37,12 +37,19 @@ Raumgrundschnittanaylse {
 		Mindestabstand zu Sektoren und problem. Gegenst.
 	}
 }
-traking und umgebungsprogramm {
+tracking und umgebungsprogramm {
 	darstellungsebene auf computer im browser {
 		zeichenebene mit linien zwischen den beobachtungspunkten
 		drohnenzeichen + drehung an position der drohne
+		ggf animierte Flugroute der Drohne
 		Safezone: normaler weißer Hintergrund ohne Zusatz
 		Dangerzone: rote Flächen ggf mit Strafierungen(problem. Gegenst.)
+	}
+	3D simulationsdarstellung {
+		objekte erkennen und 3d darstellen(GLOOP/OpenGL)
+		steuerung durch den raum
+		daten für weiteren nutzen zur Verfügung stellen(datenbank)
+		Texturbilder erstellen und abgleichen
 	}
 	benutzerdefinierte Parameter {
 		genauigkeit: max abstand zwischen beobachtungspunkten
@@ -50,4 +57,63 @@ traking und umgebungsprogramm {
 		groundmode: vergleich mit dem boden für genauere POSITION und drehung + HÖHE
 		wallmode: vergleich mit wandstrukturen für genauere position und DREHUNG + HÖHE
 	}
+	netzwerkaufbau {
+		drohne(packages) - WLAN receiver server program(Node.js/php) - client browser(javascript/html)
+	}
+}
+Wegfindung {
+	linear {
+		direkter Weg vom Startpunkt zum Endpunkt
+		beschleunigen und abbremsen beachten
+		standort kontrollieren und ggf korrigieren
+	}
+	Patroullienbefehl {
+		dauerhaftes drehen
+		dabei auf flugroute fliegen
+		bei änderung zum Server alarm schlagen
+	}
+	hindernis im weg {
+		hindernisse erkennen, kreuzende linien
+		aufteilen der strecke in einzelne Teilstrecken
+		umgehen von hindernissen, schnellster Weg
+	}
+}
+Kamera Tiefenbildanalytik {
+	Strukturen erkennen {
+		ebene Flächen(Wände, Fenster, Kanten)
+		störObjekte annähern und ausgleichen(Pflanzen, Stangen)
+		unregelmäßigkeiten zur 0Achse rausfiltern(Tische 10 cm unter Fluglinie)
+		aus verschiedenen Winkeln analysieren
+	}
+	Dangerzones einrichten und umfliegen
+	3D Modell erzeugen
+}
+Kontrolle über VR-Brille(pappebrille) {
+	Simulation und Empfinden der vr bilder
+	kopplung von handy und drohnenbild
+	steuerung der drohne {
+		sensoren des handys -> Steuerung der drohne(drehen, kippen)
+		gestik und kamera(vorne, hinten, hoch, runter)
+	}
+	Verknüpfen mit Raumanalytik {
+		befehl: raum durchsuchen
+		3D Holoeffekte, da die Ebenen festgesetzt sind
+		annäherung von kurven und ecken
+		farbige transparente oberfläche
+		transparenz lässt nach, wenn man näher kommt
+	}
+}
+intelligente Drohne ohne Host {
+	eigenständige Drohne {
+		programme auf drohne laden
+		falls ohne befehl/programm: zurück zum Hostserver und nachschub holen
+		falls keine befehle, automatisch landen und energie sparen + msg: Keine Befehle, ausschalten?
+	}
+	Master-Slave {
+		Drohne folgt einer Person ständig
+		landet während langen wartezeit
+		analysieren von gestik von master(folgen, warten/landen)
+		Erkennung anhand von Merkmalen(Symbole, Farbe, Objekt, Person)
+	}
+	automatische Raumanalyse, falls in neuem Raum
 }
