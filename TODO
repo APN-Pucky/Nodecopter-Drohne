@@ -1,0 +1,23 @@
+Steurung beherschen
+Flugbahnen programmieren
+Sensoren testen
+	- Genauigkeit, Verhalten, Störungen
+	- Integrations und Nutzungsmöglichkeiten?
+Bildanalyse (unten und vorne) -> Objekterkennung
+	- Raumanalyse
+		+ Grundschnitt
+		+ eigenständige Positionswahl
+	- Hindernisserkennung
+	- Flächen- und Flugzonenberechnung/erkennung	 
+	- 3D- Modelle
+Wegfindung
+	- lineare Wegplanung + Anzeige auf PC
+	- Terraincollision + Sicherhgeitsabstände
+	- (...)
+VR-Brille
+	- Echtzeit testen
+	- Befehlsverknüpfung
+	- Verbinden mit Raumanalyse
+Autonome Drohne
+ 	- Tracken eines Objekts
+	- (...)
