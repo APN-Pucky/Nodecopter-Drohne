@@ -7,10 +7,21 @@
 </head>
 <body>
  	<div id="droneStream" style="width: 640px; height: 360px">   </div>	
-       <h3 class="title">Buttons</h3>
+        <h3 class="title">Buttons</h3>
 
-	<button class='button1' id='button1'> Takeoff  </button>	
-	<button class='button2' id='button2'> Land  </button>	
+	<button class='button' id='takeoff' char='T'> Takeoff(t)  </button>	
+	<button class='button' id='land' char='B'> Land(b)  </button>	
+	<button class='button' id='forward' char='W'> Forward(w)  </button>	
+	<button class='button' id='backward' char='S'> Backward(s)  </button>	
+	<button class='button' id='left' char='A'> Left(a)  </button>	
+	<button class='button' id='right' char='D'> Right(d)  </button>	
+	<button class='button' id='up' char='I'> Up(i)  </button>	
+	<button class='button' id='down' char='K'> Down(k)  </button>	
+	<button class='button' id='rotleft' char='J'> Rotate Left(j)  </button>	
+	<button class='button' id='rotright' char='L'> Rotate Right(l) </button>	
+	<button class='button' id='stop' char=' '> Stop(Space) </button>	
+
+
   <script src="/jquery.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="/main.js"></script>

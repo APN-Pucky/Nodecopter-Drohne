@@ -1,18 +1,18 @@
 $(function() {
-  var $window = $(window);
-  var $b1 = $('.button1');
+  var $b = $('.button');
   var connected = false;
 
-  var socket = io();
-  $b1.click(function() {
-	socket.emit('button1');
-	});
-  $('#button2').click(function() {
-	socket.emit('button2');
-	});
-  socket.on('button2', function (data) {
-	//DO STH
-	$('#button2').css({"width" : "1000px"});
-  });
 
+  var socket = io();
+  $b.click(function() {
+	socket.emit($(this).attr('char'));
+  });
+  /*
+  socket.on('eventname', function (data) {
+	//DO STH
+  });
+  */
+  $(document).keydown(function(e) {
+	socket.emit(String.fromCharCode(e.keyCode));
+  });
 });

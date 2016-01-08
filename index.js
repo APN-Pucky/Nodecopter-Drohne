@@ -18,16 +18,22 @@ app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function (socket) {
 
-  socket.on('button1', function (data) {
-	console.log('button1');
+  socket.on('T', function (data) {
+	console.log('takeoff');
 	client.takeoff();
   });
 
-  socket.on('button2', function (data) {
-	console.log('button2');
-    	socket.emit('button2'); 
+  socket.on('B', function (data) {
+	console.log('land');
+    	//socket.emit('button2'); 
 	client.stop();
 	client.land();
   });
+	
+  socket.on(' ',function(data) {
+	console.log('stop');
+	client.stop();
+  });
+
 });
 
