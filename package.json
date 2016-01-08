@@ -1,12 +1,12 @@
 {
-  "name" : "Test",
-  "description" : "Test",
+  "name" : "Nodecopter-Drohne",
+  "description" : "JuFo Projekt",
   "homepage" : "",
   "keywords" : [],
-  "author" : "APNPucyk",
+  "author" : "APNPucky",
   "contributors" :[],
   "dependencies" : ["socket.io","express","ar-drone","dronestream"],
   "main" : "underscore.js",
-  "version" : "1.1.6",
+  "version" : "0.0.1",
   "license" : "GPLv2"
 }
