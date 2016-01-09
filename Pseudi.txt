@@ -1,15 +1,15 @@
 steuerung testen {
-	per freeflight testen
+	per freeflight testenâœ“
 	links, rechts, oben, unten per Programm{
-		Packete mit direkten Befehlen der Parrot-Software
-		Packete zum abbrechen von anderen Befehlen
+		Packete mit direkten Befehlen der Parrot-Softwareâœ“
+		Packete zum abbrechen von anderen Befehlenâœ“
 	}
 }
 sensoreigenschaften testen {
 	sensoren vermessen {
-		internetrecherche über daten 
+		internetrecherche ï¿½ber daten 
 		einzelne analyse der sensoren auf deren eigenschaften auf festem untergrund 
-		wirkungsgrade und stabilität und vertrauensquote feststellen: genauigkeit der gemessenen daten
+		wirkungsgrade und stabilitï¿½t und vertrauensquote feststellen: genauigkeit der gemessenen daten
 	}
 	sensoreigenschaften nutzen {
 		wie kann man verschiedene Sensoren nutzen, um genauer und stabiler zu messen?
@@ -17,7 +17,7 @@ sensoreigenschaften testen {
 	}
 }
 Raumgrundschnittanaylse {
-	auf einer Ebene einen kreisförmigen Grundschnitt erstellen {
+	auf einer Ebene einen kreisfï¿½rmigen Grundschnitt erstellen {
 		drohne bleibt auf einem punkt (vergleich mit der unteren Kamera)
 		entfernungsmesser misst punktuelle entfernung zum objekt direkt vor der drohne
 		langsam drehen und entfernung im pc umrechnen in beobachtungspunkte
@@ -28,11 +28,11 @@ Raumgrundschnittanaylse {
 		normale analyse starten
 	}
 	Dangerzones umgehen {
-		problematische Gegenstände{
+		problematische Gegenstï¿½nde{
 			Fenster
 			Stangen
 			Pflanzen
-			dünne Stiele, Drähte und Seile etc.
+			dï¿½nne Stiele, Drï¿½hte und Seile etc.
 		}
 		Mindestabstand zu Sektoren und problem. Gegenst.
 	}
@@ -42,20 +42,20 @@ tracking und umgebungsprogramm {
 		zeichenebene mit linien zwischen den beobachtungspunkten
 		drohnenzeichen + drehung an position der drohne
 		ggf animierte Flugroute der Drohne
-		Safezone: normaler weißer Hintergrund ohne Zusatz
-		Dangerzone: rote Flächen ggf mit Strafierungen(problem. Gegenst.)
+		Safezone: normaler weiï¿½er Hintergrund ohne Zusatz
+		Dangerzone: rote Flï¿½chen ggf mit Strafierungen(problem. Gegenst.)
 	}
 	3D simulationsdarstellung {
 		objekte erkennen und 3d darstellen(GLOOP/OpenGL)
 		steuerung durch den raum
-		daten für weiteren nutzen zur Verfügung stellen(datenbank)
+		daten fï¿½r weiteren nutzen zur Verfï¿½gung stellen(datenbank)
 		Texturbilder erstellen und abgleichen
 	}
 	benutzerdefinierte Parameter {
 		genauigkeit: max abstand zwischen beobachtungspunkten
 		schnelligkeit: drehgeschwindigkeit der drohne
-		groundmode: vergleich mit dem boden für genauere POSITION und drehung + HÖHE
-		wallmode: vergleich mit wandstrukturen für genauere position und DREHUNG + HÖHE
+		groundmode: vergleich mit dem boden fï¿½r genauere POSITION und drehung + Hï¿½HE
+		wallmode: vergleich mit wandstrukturen fï¿½r genauere position und DREHUNG + Hï¿½HE
 	}
 	netzwerkaufbau {
 		drohne(packages) - WLAN receiver server program(Node.js/php) - client browser(javascript/html)
@@ -70,7 +70,7 @@ Wegfindung {
 	Patroullienbefehl {
 		dauerhaftes drehen
 		dabei auf flugroute fliegen
-		bei änderung zum Server alarm schlagen
+		bei ï¿½nderung zum Server alarm schlagen
 	}
 	hindernis im weg {
 		hindernisse erkennen, kreuzende linien
@@ -80,38 +80,38 @@ Wegfindung {
 }
 Kamera Tiefenbildanalytik {
 	Strukturen erkennen {
-		ebene Flächen(Wände, Fenster, Kanten)
-		störObjekte annähern und ausgleichen(Pflanzen, Stangen)
-		unregelmäßigkeiten zur 0Achse rausfiltern(Tische 10 cm unter Fluglinie)
+		ebene Flï¿½chen(Wï¿½nde, Fenster, Kanten)
+		stï¿½rObjekte annï¿½hern und ausgleichen(Pflanzen, Stangen)
+		unregelmï¿½ï¿½igkeiten zur 0Achse rausfiltern(Tische 10 cm unter Fluglinie)
 		aus verschiedenen Winkeln analysieren
 	}
 	Dangerzones einrichten und umfliegen
 	3D Modell erzeugen
 }
-Kontrolle über VR-Brille(pappebrille) {
+Kontrolle ï¿½ber VR-Brille(pappebrille) {
 	Simulation und Empfinden der vr bilder
 	kopplung von handy und drohnenbild
 	steuerung der drohne {
 		sensoren des handys -> Steuerung der drohne(drehen, kippen)
 		gestik und kamera(vorne, hinten, hoch, runter)
 	}
-	Verknüpfen mit Raumanalytik {
+	Verknï¿½pfen mit Raumanalytik {
 		befehl: raum durchsuchen
 		3D Holoeffekte, da die Ebenen festgesetzt sind
-		annäherung von kurven und ecken
-		farbige transparente oberfläche
-		transparenz lässt nach, wenn man näher kommt
+		annï¿½herung von kurven und ecken
+		farbige transparente oberflï¿½che
+		transparenz lï¿½sst nach, wenn man nï¿½her kommt
 	}
 }
 intelligente Drohne ohne Host {
-	eigenständige Drohne {
+	eigenstï¿½ndige Drohne {
 		programme auf drohne laden
-		falls ohne befehl/programm: zurück zum Hostserver und nachschub holen
+		falls ohne befehl/programm: zurï¿½ck zum Hostserver und nachschub holen
 		falls keine befehle, automatisch landen und energie sparen + msg: Keine Befehle, ausschalten?
 	}
 	Master-Slave {
-		Drohne folgt einer Person ständig
-		landet während langen wartezeit
+		Drohne folgt einer Person stï¿½ndig
+		landet wï¿½hrend langen wartezeit
 		analysieren von gestik von master(folgen, warten/landen)
 		Erkennung anhand von Merkmalen(Symbole, Farbe, Objekt, Person)
 	}
