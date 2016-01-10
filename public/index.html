@@ -43,7 +43,7 @@
 </div> 
   <script type="text/javascript" charset="utf-8">
         var copterStream = new NodecopterStream(document.getElementById("droneStream"), document.getElementById("droneTrack"));
-	var tracker = new NodecopterTrack(copterStream, "#dot");
+	var tracker = new NodecopterTrack(copterStream,document.getElementById("droneTrack"), "#dot");
 	//var WebGLTest = new WebGLTest(document.getElementById("droneStream"));
   </script>
 
