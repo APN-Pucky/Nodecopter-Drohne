@@ -43,8 +43,20 @@
         return {x:canvasX, y:canvasY};
     };
 
+    function setupCanvas(div) {
+        var canvas = document.createElement('canvas');
 
-    NodecopterTrack = function (copterStream, imgId) {
+        //width = div.attributes.width ? div.attributes.width.value : 640;
+        //height = div.attributes.height ? div.attributes.height.value : 360;
+
+        canvas.width = width;
+        canvas.height = height;
+        canvas.style.backgroundColor = "#333333";
+        div.appendChild(canvas);
+
+    }
+    NodecopterTrack = function (copterStream,div, imgId) {
+	setupCanvas(div);
         var tracker = this;
         this.curr_img_pyr = new jsfeat.pyramid_t(3);
         this.prev_img_pyr = new jsfeat.pyramid_t(3);
