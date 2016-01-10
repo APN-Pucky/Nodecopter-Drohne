@@ -3,7 +3,11 @@
 (function (window, document, undefined) {
     'use strict';
     var NodecopterTrack,
-        lastTime;
+	lastTime,
+	canvas,
+	ctx,
+	width,
+	height;
 
     function schedule (callback, element) {
           var requestAnimationFrame =
@@ -25,130 +29,98 @@
           return requestAnimationFrame.call(window, callback, element);
     }
 
+    function setupCanvas(div) {
+        canvas = document.createElement('canvas');
 
-    var relMouseCoords = function (event) {
-        var totalOffsetX = 0,
-            totalOffsetY = 0,
-            canvasX = 0,
-            canvasY = 0,
-            currentElement = this;
+        width = div.attributes.width ? div.attributes.width.value : 640;
+        height = div.attributes.height ? div.attributes.height.value : 360;
 
-        do {
-            totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
-            totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
-        } while (currentElement = currentElement.offsetParent);
+        canvas.width = width;
+        canvas.height = height;
+        canvas.style.backgroundColor = "#333333";
+        div.appendChild(canvas);
+	ctx = canvas.getContext('2d');
 
-        canvasX = event.pageX - totalOffsetX;
-        canvasY = event.pageY - totalOffsetY;
-        return {x:canvasX, y:canvasY};
-    };
-
-
-    NodecopterTrack = function (copterStream, imgId) {
+    }
+    NodecopterTrack = function (copterStream,div, imgId) {
+	setupCanvas(div);
         var tracker = this;
-        this.curr_img_pyr = new jsfeat.pyramid_t(3);
-        this.prev_img_pyr = new jsfeat.pyramid_t(3);
-        this.point_count  = 0;
-        this.point_status = new Uint8Array(1);
-        this.prev_xy      = new Float32Array(2);
-        this.curr_xy      = new Float32Array(2);
-        this.copterStream = copterStream;
-        this.canvas       = copterStream.getCanvas();
-        this.rgbaData     = new Uint8Array(
-            this.canvas.width * this.canvas.height * 4
-        ); // RGBA
-        this.crosshairs   = document.querySelector(imgId);
-
-        this.curr_img_pyr.allocate(
-            this.canvas.width, this.canvas.height, jsfeat.U8_t | jsfeat.C1_t
+	this.rgbaData     = new Uint8Array(
+            width * height * 4
         );
-        this.prev_img_pyr.allocate(
-            this.canvas.width, this.canvas.height, jsfeat.U8_t | jsfeat.C1_t
-        );
-
-        this.canvas.addEventListener('click', function(event) {
-            tracker.canvasClickHandler(event);
-        }, false);
-        HTMLCanvasElement.prototype.relMouseCoords = relMouseCoords;
-        // this.canvas.prototype.relMouseCoords = relMouseCoords;
-
         this.update();
     };
 
-    NodecopterTrack.prototype.update = function () {
-        var _pt_xy, _pyr,
-            tracker = this;
+    function cany(imageData) {
+		    //var imageData = ctx.getImageData(0, 0, 640, 480);
+		    var img_u8 = new jsfeat.matrix_t(width, height, jsfeat.U8C1_t);
+		    
+                    jsfeat.imgproc.grayscale(imageData.data, width, height, img_u8);
 
+                    var r = 1;
+                    var kernel_size = (r+1) << 1;
+
+                    jsfeat.imgproc.gaussian_blur(img_u8, img_u8, kernel_size, 0);
+
+                    jsfeat.imgproc.canny(img_u8, img_u8, 30,30);
+	//		console.log("size" + img_u8.data.length);
+		/*	var p = 0;
+			for(var i =0;i<img_u8.data.length;i+=4)
+			{
+				
+				imageData.data[i+0] = 0xff <<24;
+				imageData.data[i+1] = img_u8.data[p]<<16;
+				imageData.data[i+2] = img_u8.data[p]<<8;
+				imageData.data[i+3] = img_u8.data[p];
+				p++;
+			}*/
+		  /*  for(var i = 0; i < img_u8.rows*4;i+=4)
+		    {
+			for(var j =img_u8.cols*4-1;j>=0;j-=4)
+			{
+				imageData.data[k-0] = img_u8.datakk[i*width+j+1]; 
+				imageData.data[k-1] = this.rgbaData[i*width+j+0]; 
+				imageData.data[k-2] = this.rgbaData[i*width+j+3]; 
+				imageData.data[k-3] = 8-this.rgbaData[i*width+j+2]; 
+				k-=4;
+			}
+		    } */
+                    // render result back to canvas
+                    var data_u32 = new Uint32Array(imageData.data.buffer);
+                    var alpha = (0xff << 24);
+                    var i = img_u8.cols*img_u8.rows, pix = 0;
+                    while(--i >= 0) {
+                        pix = img_u8.data[i];
+                        data_u32[i] = alpha | (pix << 16) | (pix << 8) | pix;
+                    }
+
+                    ctx.putImageData(imageData, 0, 0);	
+    }
+
+    NodecopterTrack.prototype.update = function () {
+        var tracker = this;
         schedule(function () {
             tracker.update();
         });
+	copterStream.getImageData(this.rgbaData);
+	var imageData = ctx.createImageData(width,height);
+	var k =imageData.data.length;
+	for(var i = 0; i < height*4;i+=4)
+	{
+		for(var j =width*4-1;j>=0;j-=4)
+		{
+			imageData.data[k-0] = this.rgbaData[i*width+j+1];//red 
+			imageData.data[k-1] = this.rgbaData[i*width+j+0];//dont touch 
+			imageData.data[k-2] = this.rgbaData[i*width+j+3];//blue
+			imageData.data[k-3] = this.rgbaData[i*width+j+2];//green 
+			k-=4;
+		}
 
-        if (! this.point_count) {
-            this.crosshairs.style.display = 'none';
-            return;
-        }
+	}    
+	//ctx.putImageData(imageData,0,0);
+	cany(imageData);	
 
-        _pt_xy = this.prev_xy;
-        _pyr = this.prev_img_pyr;
-
-        this.prev_xy = this.curr_xy;
-        this.curr_xy = _pt_xy;
-
-        this.prev_img_pyr = this.curr_img_pyr;
-        this.curr_img_pyr = _pyr; // reuse old pyramid data structure
-
-        this.copterStream.getImageData(this.rgbaData);
-        jsfeat.imgproc.grayscale(
-            this.rgbaData,
-            this.curr_img_pyr.data[0].data
-        );
-
-        // optional: enhance contrast:
-        jsfeat.imgproc.equalize_histogram(
-            this.curr_img_pyr.data[0].data,
-            this.curr_img_pyr.data[0].data
-        );
-
-        this.curr_img_pyr.build(this.curr_img_pyr.data[0], true);
-
-        jsfeat.optical_flow_lk.track(
-            this.prev_img_pyr,
-            this.curr_img_pyr,
-            this.prev_xy,
-            this.curr_xy,
-            1,
-            50,            // win_size
-            30,            // max_iterations
-            this.point_status,
-            0.01,          // epsilon,
-            0.001          // min_eigen
-        );
-
-        if (this.point_status[0] == 1) {
-            this.crosshairs.style.left = (this.curr_xy[0] - 83) + 'px';
-            this.crosshairs.style.top = (
-                this.canvas.height - 83 - this.curr_xy[1]
-            ) + 'px';
-            this.crosshairs.style.display = 'block';
-        } else {
-            this.point_count = 0;
-            console.log('lost target');
-        }
-    };
-
-    NodecopterTrack.prototype.canvasClickHandler = function (e) {
-        var coords = this.canvas.relMouseCoords(e);
-        if (
-            (coords.x > 0) &&
-            (coords.y > 0) &&
-            (coords.x < this.canvas.width) &&
-            (coords.y < this.canvas.height)
-        ) {
-            this.curr_xy[0] = coords.x;
-            this.curr_xy[1] = this.canvas.height - coords.y;
-            this.point_count = 1;
-        }
-        console.log('Click:', coords);
+	//console.log("image");
     };
 
     window.NodecopterTrack = NodecopterTrack;
