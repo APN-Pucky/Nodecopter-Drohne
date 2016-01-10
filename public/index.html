@@ -4,10 +4,26 @@
   <meta charset="UTF-8">
   <title>Socket.IO Testing</title>
   <link rel="stylesheet" href="style.css">
+  <script src="/jquery.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/main.js"></script>
+  <script src="/js/vendor/broadway/sylvester.js"></script>
+  <script src="/js/vendor/broadway/glUtils.js"></script>
+  <script src="/js/vendor/broadway/util.js"></script>
+  <script src="/js/vendor/broadway/avc-codec.js"></script>
+  <script src="/js/vendor/broadway/avc.js"></script>
+  <script src="/js/vendor/broadway/canvas.js"></script>
+  <script src="/js/vendor/jsfeat/jsfeat-min.js"></script>
+  <script src="/js/nodecopter-stream.js"></script>
+  <script src="/js/nodecopter-track.js"></script>
+  <script src="/js/webgltest.js"></script>
 </head>
+
 <body>
- 	<div id="droneStream" style="width: 640px; height: 360px">   </div>	
-        <h3 class="title">Buttons</h3>
+	<div>
+		<div id="droneStream" style="width: 640px; height: 360px;">   </div>	
+		<div id="droneTrack" style="width: 640px; height: 360px;float:left">   </div>	
+        <h3 class="title" >Buttons</h3>
 
 	<button class='button' id='takeoff' char='T'> Takeoff(t)  </button>	
 	<button class='button' id='land' char='B'> Land(b)  </button>	
@@ -21,15 +37,14 @@
 	<button class='button' id='rotright' char='L'> Rotate Right(l) </button>	
 	<button class='button' id='stop' char=' '> Stop(Space) </button>	
 	<button class='button' id='camera' char='C'> Camera(C) </button>	
+	<img id='dot' src="images/dot.jpg" style="width:10px;height:10pt;position:absolute;opacity:0.6"/>
 
-
-  <script src="/jquery.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/main.js"></script>
-  <script src="/dronestream/nodecopter-client.js" type="text/javascript" charset="utf-8"></script>
- 
+  
+</div> 
   <script type="text/javascript" charset="utf-8">
-        new NodecopterStream(document.getElementById("droneStream"));
+        var copterStream = new NodecopterStream(document.getElementById("droneStream"), document.getElementById("droneTrack"));
+	var tracker = new NodecopterTrack(copterStream, "#dot");
+	//var WebGLTest = new WebGLTest(document.getElementById("droneStream"));
   </script>
 
 </body>

@@ -7,7 +7,8 @@ var port = process.env.PORT || 3000;
 
 var arDrone = require('ar-drone');
 var client = arDrone.createClient();
-require("dronestream").listen(server);
+require('dronestream').listen(server);
+
 server.listen(port, function () {
   console.log('Server listening at port %d', port);
 });
@@ -15,7 +16,7 @@ server.listen(port, function () {
 app.use(express.static(__dirname + '/public'));
 
 client.config('general:navdata_demo', 'FALSE');
-client.on('navdata', handleNav);
+//client.on('navdata', handleNav);
 
 function handleNav(data) {
 	if(!data.altitude) { return; }

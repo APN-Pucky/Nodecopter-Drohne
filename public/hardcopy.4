@@ -1,0 +1,39 @@
+          var requestAnimationFrame =
+              window.requestAnimationFrame        ||
+              window.webkitRequestAnimationFrame  ||
+              window.mozRequestAnimationFrame     ||
+              window.oRequestAnimationFrame       ||
+              window.msRequestAnimationFrame      ||
+              function(callback, element) {
+                  var currTime = new Date().getTime(),
+                      timeToCall = Math.max(0, 16 - (currTime - lastTime)),
+                      id = window.setTimeout(function() {
+                            callback(currTime + timeToCall);
+                      }, timeToCall);
+                  lastTime = currTime + timeToCall;
+                  return id;
+              };
+
+          return requestAnimationFrame.call(window, callback, element);
+    }
+
+
+    var relMouseCoords = function (event) {
+        var totalOffsetX = 0,
+            totalOffsetY = 0,
+            canvasX = 0,
+            canvasY = 0,
+            currentElement = this;
+
+        do {
+            totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
+            totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
+apn@APNsEliteBook:~/Developing/git/Nodecopter-Drohne/public/js$ cd ..
+apn@APNsEliteBook:~/Developing/git/Nodecopter-Drohne/public$ cd d..
+bash: cd: d..: No such file or directory
+apn@APNsEliteBook:~/Developing/git/Nodecopter-Drohne/public$ cd ..
+apn@APNsEliteBook:~/Developing/git/Nodecopter-Drohne$ node index.js
+Connecting to drone on 192.168.1.1
+Server listening at port 3000
+^C
+apn@APNsEliteBook:~/Developing/git/Nodecopter-Drohne$
