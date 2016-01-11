@@ -14,9 +14,9 @@
   <script src="/js/vendor/broadway/avc.js"></script>
   <script src="/js/vendor/broadway/canvas.js"></script>
   <script src="/js/vendor/jsfeat/jsfeat-min.js"></script>
+  <script src="/js/vendor/jsfeat/bbf_face.js"></script>
   <script src="/js/nodecopter-stream.js"></script>
   <script src="/js/nodecopter-track.js"></script>
-  <script src="/js/webgltest.js"></script>
 </head>
 
 <body>
@@ -37,13 +37,13 @@
 	<button class='button' id='rotright' char='L'> Rotate Right(l) </button>	
 	<button class='button' id='stop' char=' '> Stop(Space) </button>	
 	<button class='button' id='camera' char='C'> Camera(C) </button>	
-	<img id='dot' src="images/dot.jpg" style="width:10px;height:10pt;position:absolute;opacity:0.6"/>
 
   
 </div> 
   <script type="text/javascript" charset="utf-8">
         var copterStream = new NodecopterStream(document.getElementById("droneStream"), document.getElementById("droneTrack"));
-	var tracker = new NodecopterTrack(copterStream,document.getElementById("droneTrack"), "#dot");
+	var tracker1= new NodecopterTrack(copterStream,document.getElementById("droneTrack"));
+	//var tracker2= new NodecopterTrack(copterStream,document.getElementById("droneTrack"));
 	//var WebGLTest = new WebGLTest(document.getElementById("droneStream"));
   </script>
 

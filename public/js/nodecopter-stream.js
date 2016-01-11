@@ -96,7 +96,7 @@
 
         canvas.width = width;
         canvas.height = height;
-        canvas.style.backgroundColor = "#333333";
+        canvas.style.backgroundColor = "#FFFFFF";
         div.appendChild(canvas);
 
         webGLCanvas = new YUVWebGLCanvas(canvas, new Size(width, height));

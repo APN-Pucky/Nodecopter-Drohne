@@ -16,7 +16,7 @@ server.listen(port, function () {
 app.use(express.static(__dirname + '/public'));
 
 client.config('general:navdata_demo', 'FALSE');
-client.on('navdata', handleNav);
+//client.on('navdata', handleNav);
 
 function handleNav(data) {
 	if(!data.altitude) { return; }
