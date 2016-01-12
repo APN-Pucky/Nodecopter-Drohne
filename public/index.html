@@ -16,6 +16,7 @@
   <script src="/js/vendor/jsfeat/jsfeat-min.js"></script>
   <script src="/js/vendor/jsfeat/bbf_face.js"></script>
   <script src="/js/nodecopter-stream.js"></script>
+  <script src="/js/nodecopter-cv.js"></script>
   <script src="/js/nodecopter-track.js"></script>
 </head>
 
@@ -39,12 +40,11 @@
 	<button class='button' id='camera' char='C'> Camera(C) </button>	
 
   
-</div> 
+	</div> 
   <script type="text/javascript" charset="utf-8">
         var copterStream = new NodecopterStream(document.getElementById("droneStream"), document.getElementById("droneTrack"));
-	var tracker1= new NodecopterTrack(copterStream,document.getElementById("droneTrack"));
-	//var tracker2= new NodecopterTrack(copterStream,document.getElementById("droneTrack"));
-	//var WebGLTest = new WebGLTest(document.getElementById("droneStream"));
+	new NodecopterCV(copterStream,document.getElementById("droneTrack"),"canny");
+	new NodecopterCV(copterStream,document.getElementById("droneTrack"),"scharr");
   </script>
 
 </body>
