@@ -86,7 +86,7 @@ function up() {
 }
 function down() {
 	client.down($speed);
-	log('speed');
+	log('down');
 }
 function rotleft() {
 	client.counterClockwise($speed);

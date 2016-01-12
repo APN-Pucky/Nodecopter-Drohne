@@ -45,8 +45,7 @@
     var NS,
         socket,
         avc,
-        webGLCanvas,
-	webGLCanvas2,
+        webGLCanvas,	
         width,
         height,
         callbackOnce = null;
@@ -78,10 +77,6 @@
             webGLCanvas.VTexture.fill(buffer.subarray(lumaSize + chromaSize, lumaSize + 2 * chromaSize));
             webGLCanvas.drawScene();
 
-            webGLCanvas2.YTexture.fill(buffer.subarray(0, lumaSize));
-            webGLCanvas2.UTexture.fill(buffer.subarray(lumaSize, lumaSize + chromaSize));
-            webGLCanvas2.VTexture.fill(buffer.subarray(lumaSize + chromaSize, lumaSize + 2 * chromaSize));
-            webGLCanvas2.drawScene();
         });
 
         // call callback with Y portion (grayscale image)
@@ -101,25 +96,12 @@
 
         canvas.width = width;
         canvas.height = height;
-        canvas.style.backgroundColor = "#333333";
+        canvas.style.backgroundColor = "#FFFFFF";
         div.appendChild(canvas);
 
         webGLCanvas = new YUVWebGLCanvas(canvas, new Size(width, height));
     }
 
-    function setupCanvas2(div) {
-        var canvas = document.createElement('canvas');
-
-        //width = div.attributes.width ? div.attributes.width.value : 640;
-        //height = div.attributes.height ? div.attributes.height.value : 360;
-
-        canvas.width = width;
-        canvas.height = height;
-        canvas.style.backgroundColor = "#333333";
-        div.appendChild(canvas);
-
-        webGLCanvas2 = new YUVWebGLCanvas(canvas, new Size(width, height));
-    }
 
 
     NS = function (div,div2, options) {
@@ -129,7 +111,6 @@
         port = options.port || window.document.location.port;
 
         setupCanvas(div);
-	setupCanvas2(div2);
         setupAvc();
 
         socket = new WebSocket(
@@ -145,7 +126,7 @@
     };
 
     NS.prototype.getImageData = function (rgbaData) {
-        var gl = webGLCanvas2.gl;
+        var gl = webGLCanvas.gl;
 
         gl.readPixels(
             0, 0, width, height,
@@ -158,9 +139,6 @@
         return;
     };
 
-    NS.prototype.getCanvas = function () {
-	return webGLCanvas2.canvas;
-    };
 
     window.NodecopterStream = NS;
 

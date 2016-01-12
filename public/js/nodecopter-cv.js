@@ -2,11 +2,12 @@
 /*global jsfeat:true console:true */
 (function (window, document, undefined) {
     'use strict';
-    var NodecopterTrack;
+    var NodecopterCV;
     
-    NodecopterTrack = function (copterStream,div) {
+    NodecopterCV = function (copterStream,div,algo) {
 	this.copterStream = copterStream;
 	this.div = div;
+	this.algo = algo;
 	this.setupCanvas();
 	this.rgbaData     = new Uint8Array(
             this.width * this.height * 4
@@ -15,11 +16,13 @@
 	this.img_gxgy = new jsfeat.matrix_t(this.width,this.height,jsfeat.S32C2_t);
 	this.ctx.fillStyle = "rgb(0,255,0)";
 	this.ctx.strokeStyle = "rgb(0,255,0)";
-	//jsfeat.bbf.prepare_cascade(jsfeat.bbf.face_cascade);
+	switch(this.algo) {
+		case "bbfface":jsfeat.bbf.prepare_cascade(jsfeat.bbf.face_cascade); break;
+	}
         this.update();
     };
 
-    NodecopterTrack.prototype.schedule = function(callback, element) {
+    NodecopterCV.prototype.schedule = function(callback, element) {
           var requestAnimationFrame =
               window.requestAnimationFrame        ||
               window.webkitRequestAnimationFrame  ||
@@ -40,7 +43,7 @@
     };
 
     
-    NodecopterTrack.prototype.bbfface=function()
+    NodecopterCV.prototype.bbfface=function()
     {
 	this.updateMatrix();
 	var pyr = jsfeat.bbf.build_pyramid(this.img_u8,24*2,24*2,4);
@@ -48,7 +51,7 @@
 	rects = jsfeat.bbf.group_rectangles(rects,1);
 	this.draw_faces(rects,this.width/this.img_u8.cols,1);
     };
-    NodecopterTrack.prototype.draw_faces=function(rects, sc, max) {
+    NodecopterCV.prototype.draw_faces=function(rects, sc, max) {
                 var on = rects.length;
                 if(on && max) {
                     jsfeat.math.qsort(rects, 0, on-1, function(a,b){return (b.confidence<a.confidence);})
@@ -62,20 +65,20 @@
                 }
             };
 
-    NodecopterTrack.prototype.sobel=function(colorchange) {
+    NodecopterCV.prototype.sobel=function(colorchange) {
 	this.updateMatrix();
        	jsfeat.imgproc.sobel_derivatives(this.img_u8,this.img_gxgy);
 	this.gxgyToImage(1);	
 	if(colorchange)this.changeImageData(-255,0,-255,200);//black+gray instead of red + green
     };
-    NodecopterTrack.prototype.scharr=function(colorchange) {
+    NodecopterCV.prototype.scharr=function(colorchange) {
 	this.updateMatrix();
        	jsfeat.imgproc.scharr_derivatives(this.img_u8,this.img_gxgy);
 	this.gxgyToImage(2);	
 	if(colorchange)this.changeImageData(-255,0,-255,200);//black+gray instead of red + green
     };
 
-    NodecopterTrack.prototype.canny=function(p0,p1,p2) {
+    NodecopterCV.prototype.canny=function(p0,p1,p2) {
 	this.updateMatrix();
        	var r = p0;
        	var kernel_size = (r+1) << 1;
@@ -85,12 +88,12 @@
 	this.u8ToImage();
     };
 
-    NodecopterTrack.prototype.updateMatrix=function()
+    NodecopterCV.prototype.updateMatrix=function()
     {
         jsfeat.imgproc.grayscale(this.imageData.data, this.width, this.height, this.img_u8);
     };
 
-    NodecopterTrack.prototype.gxgyToImage=function(shift)
+    NodecopterCV.prototype.gxgyToImage=function(shift)
     {
 		    var data_u32 = new Uint32Array(this.imageData.data.buffer);
                     var alpha = (0xff << 24);
@@ -103,7 +106,7 @@
                     }
     };
 
-    NodecopterTrack.prototype.u8ToImage=function()
+    NodecopterCV.prototype.u8ToImage=function()
     {
 	// render result back to canvas
         var data_u32 = new Uint32Array(this.imageData.data.buffer);
@@ -116,7 +119,7 @@
     };
 
     
-    NodecopterTrack.prototype.changeImageData=function(r,g,b,a) {
+    NodecopterCV.prototype.changeImageData=function(r,g,b,a) {
 	for(var k=0; k < this.imageData.data.length;	k+=4)
 	{
 			this.imageData.data[k+0] = this.imageData.data[k+0]+r;//red 
@@ -127,7 +130,7 @@
 	}
     };
 
-    NodecopterTrack.prototype.setupCanvas = function () {
+    NodecopterCV.prototype.setupCanvas = function () {
         this.canvas = document.createElement('canvas');
 
         this.width = this.div.attributes.width ? this.div.attributes.width.value : 640;
@@ -140,7 +143,7 @@
 	this.ctx = this.canvas.getContext('2d');
     };
 
-    NodecopterTrack.prototype.copterToImage = function ()
+    NodecopterCV.prototype.copterToImage = function ()
     {
 	this.copterStream.getImageData(this.rgbaData);
 	this.imageData = this.ctx.createImageData(this.width,this.height);
@@ -160,20 +163,27 @@
 
     };
 
-    NodecopterTrack.prototype.update = function () {
-        var tracker = this;
+    NodecopterCV.prototype.update = function () {
+        var cv = this;
         this.schedule(function () {
-            tracker.update();//test with this
+            cv.update();//test with this
         });
 
-	this.copterToImage();	    
-	//this.canny(1,30,30);	
-	this.scharr(false);
-	//this.sobel(true);
+	this.copterToImage();
+
+	switch(this.algo) {
+		case "canny": this.canny(1,30,30);break;
+		case "scharr": this.scharr(false);break;
+		case "sobel:": this.sobel(true);break;
+	}		
+	
         this.ctx.putImageData(this.imageData, 0, 0);	
-	//this.bbfface();
+
+	switch(this.algo) {
+		case "bbfface":this.bbfface(); break;
+	}
     };
 
-    window.NodecopterTrack = NodecopterTrack;
+    window.NodecopterCV = NodecopterCV;
 
 }(window, document, undefined));
