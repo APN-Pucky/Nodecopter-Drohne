@@ -35,9 +35,15 @@ client.config('video_channel', 1);
 client.config('detext:detext_type', 12);
 //client.on('navdata', handleNav);
 
+ctrl.on('controlData', handleData);
+
 function handleNav(data) {
 	if(!data.altitude) { return; }
 	console.log(data.altitude.raw);
+}
+
+function handleData(data) {
+	socket.broadcast.emit('controlData', data);	
 }
 
 io.on('connection', function (socket) {
