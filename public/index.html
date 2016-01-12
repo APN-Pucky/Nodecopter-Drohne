@@ -25,6 +25,7 @@
 		<div id="droneStream" style="width: 640px; height: 360px;float:left">   </div>	
 		<div id="droneCV1" style="width: 640px; height: 360px;float:left">   </div>	
 		<div id="droneCV2" style="width: 640px; height: 360px;float:left">   </div>	
+		<div id="droneTrack" style="width: 640px; height: 360px;float:left">   </div>	
         <h3 class="title" >Buttons</h3>
 
 	<button class='button' id='takeoff' char='T'> Takeoff(t)  </button>	
@@ -47,6 +48,7 @@
         var copterStream = new NodecopterStream(document.getElementById("droneStream"), document.getElementById("droneTrack"));
 	new NodecopterCV(copterStream,document.getElementById("droneCV1"),"canny");
 	new NodecopterCV(copterStream,document.getElementById("droneCV2"),"scharr");
+	new NodecopterTrack(document.getElementById("droneTrack"));
   </script>
 
 </body>

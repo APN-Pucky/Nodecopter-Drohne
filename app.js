@@ -43,7 +43,7 @@ function handleNav(data) {
 }
 
 function handleData(data) {
-	socket.broadcast.emit('controlData', data);	
+	io.sockets.emit('controlData', data);	
 }
 
 io.on('connection', function (socket) {
@@ -70,9 +70,9 @@ function log(str) {
 	console.log(str);
 }
 
-function takeoff(){
+function takeoff(socket){
   	client.takeoff(function(){ctrl.zero();});
-	
+	io.sockets.emit('data','works');	
   	log('takeoff');
 }
 function land() {
