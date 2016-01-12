@@ -164,9 +164,9 @@
     };
 
     NodecopterCV.prototype.update = function () {
-        var tracker = this;
+        var cv = this;
         this.schedule(function () {
-            tracker.update();//test with this
+            cv.update();//test with this
         });
 
 	this.copterToImage();
