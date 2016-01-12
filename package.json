@@ -5,7 +5,7 @@
   "keywords" : [],
   "author" : "APNPucky",
   "contributors" :[],
-  "dependencies" : ["socket.io","express","ar-drone","dronestream"],
+  "dependencies" : ["socket.io","express","ar-drone","dronestream","ardrone-autonomy"],
   "main" : "underscore.js",
   "version" : "0.0.1",
   "license" : "GPLv2"
