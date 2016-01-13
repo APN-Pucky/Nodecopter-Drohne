@@ -23,6 +23,10 @@
 	this.ctx.fillStyle = "rgb(0,255,0)";
         this.ctx.strokeStyle = "rgb(0,255,0)";
 	this.ctx.moveTo(this.x,this.y);
+	this.update(1,1);
+	this.update(3,2);
+	this.update(-1,3);
+	this.update(1,2);
 	var tracker = this;
 	io().on('data', function (data) {
 		//state[state.length] = data.state;
