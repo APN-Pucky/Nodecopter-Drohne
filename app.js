@@ -43,7 +43,7 @@ function handleNav(data) {
 }
 
 function handleData(data) {
-	io.sockets.emit('controlData', data);	
+	io.sockets.emit('data', data);	
 }
 
 io.on('connection', function (socket) {
@@ -59,22 +59,26 @@ io.on('connection', function (socket) {
   	socket.on('L', rotright); 
   	socket.on(' ', stop); 
   	socket.on('C', camera); 
+	socket.on('Z',zero);
 });
 
 
 var $cam = 0;
-var $dist = 0.1;
+var $speed = 0.1;
 var $ang = 10;
 
 function log(str) {
 	console.log(str);
 }
-
-function takeoff(socket){
-  	client.takeoff(function(){ctrl.zero();});
-	io.sockets.emit('data','works');	
+function takeoff(){
+  	client.takeoff();
   	log('takeoff');
 }
+function zero(){
+  	ctrl.zero();
+  	log('zero');
+}
+
 function land() {
 	client.stop();
 	client.land();
@@ -90,11 +94,11 @@ function camera() {
 	log('camera');
 }
 function forward() {
-	ctrl.front($speed);
+	ctrl.forward($speed);
 	log('forward');
 }
 function backward() {
-	ctrl.back($speed);
+	ctrl.backward($speed);
 	log('backward');
 }
 function left() {

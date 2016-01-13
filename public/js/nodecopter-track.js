@@ -2,7 +2,8 @@
 /*global jsfeat:true console:true */
 (function (window, document, undefined) {
     'use strict';
-    var NodecopterTrack;
+    var NodecopterTrack,
+	zoom = 100;
     //var state = []; 
     NodecopterTrack = function(div) {
 	this.div = div;
@@ -16,21 +17,21 @@
 	this.ctx.moveTo(5,15);
 	this.ctx.lineTo(5,25);
 	this.ctx.moveTo(5,20);
-	this.ctx.lineTo(25,20);
-	this.ctx.moveTo(25,15);
-	this.ctx.lineTo(25,25);
+	this.ctx.lineTo(zoom+5,20);
+	this.ctx.moveTo(zoom+5,15);
+	this.ctx.lineTo(zoom+5,25);
 	this.ctx.stroke();
 	this.ctx.fillStyle = "rgb(0,255,0)";
         this.ctx.strokeStyle = "rgb(0,255,0)";
 	this.ctx.moveTo(this.x,this.y);
-	this.update(1,1);
-	this.update(3,2);
-	this.update(-1,3);
-	this.update(1,2);
+	//this.update(1,1);
+	//this.update(3,2);
+	//this.update(-1,3);
+	//this.update(1,2);
 	var tracker = this;
 	io().on('data', function (data) {
 		//state[state.length] = data.state;
-		tracker.update(data.state.x,data.state.y);
+		tracker.update(data.state.y,data.state.x);
   	});	
     };
 
@@ -48,7 +49,7 @@
     };
 
     NodecopterTrack.prototype.update = function(x,y) {
-	this.ctx.lineTo(this.x+(x*20),this.y-(y*20));
+	this.ctx.lineTo(this.x+(x*zoom),this.y-(y*zoom));
 	this.ctx.stroke();
     };
 
