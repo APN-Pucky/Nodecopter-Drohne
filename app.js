@@ -35,7 +35,8 @@ io.on('connection', function (socket) {
   	socket.on('J', rotleft); 
   	socket.on('L', rotright); 
   	socket.on(' ', stop); 
-  	socket.on('C', camera); 
+  	socket.on('C', camera);
+	socket.on('Y', testFlight);
 });
 
 
@@ -96,3 +97,16 @@ function rotright() {
 	client.clockwise($speed);
 	log('rotright');
 }
+function testFlight() {
+	takeoff();
+	client.after(4000, forward);
+	client.after(2000, stop);
+	client.after(1000, right);
+	client.after(4000, stop);
+	client.after(1000, rotleft);
+	client.after(10000, forward);
+	client.after(4000, stop);
+	client.clockwise(1);
+	log('Finished Test Run!');
+}
+
