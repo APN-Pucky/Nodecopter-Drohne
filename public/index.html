@@ -22,7 +22,9 @@
 
 <body>
 	<div>
-		<div id="droneStream" style="width: 640px; height: 360px;">   </div>	
+		<div id="droneStream" style="width: 640px; height: 360px;float:left">   </div>	
+		<div id="droneCV1" style="width: 640px; height: 360px;float:left">   </div>	
+		<div id="droneCV2" style="width: 640px; height: 360px;float:left">   </div>	
 		<div id="droneTrack" style="width: 640px; height: 360px;float:left">   </div>	
         <h3 class="title" >Buttons</h3>
 
@@ -38,13 +40,15 @@
 	<button class='button' id='rotright' char='L'> Rotate Right(l) </button>	
 	<button class='button' id='stop' char=' '> Stop(Space) </button>	
 	<button class='button' id='camera' char='C'> Camera(C) </button>	
-
+	<br></br>
+	<p id='data'></p>
   
 	</div> 
   <script type="text/javascript" charset="utf-8">
         var copterStream = new NodecopterStream(document.getElementById("droneStream"), document.getElementById("droneTrack"));
-	new NodecopterCV(copterStream,document.getElementById("droneTrack"),"canny");
-	new NodecopterCV(copterStream,document.getElementById("droneTrack"),"scharr");
+	new NodecopterCV(copterStream,document.getElementById("droneCV1"),"canny");
+	new NodecopterCV(copterStream,document.getElementById("droneCV2"),"scharr");
+	new NodecopterTrack(document.getElementById("droneTrack"));
   </script>
 
 </body>
