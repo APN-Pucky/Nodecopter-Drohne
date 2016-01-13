@@ -6,7 +6,11 @@ var io = require('socket.io')(server);
 var port = process.env.PORT || 3000;
 
 var arDrone = require('ar-drone');
+var arDroneConstants = require('ar-drone/lib/constants');
 var client = arDrone.createClient();
+
+var autonomy = require('ardrone-autonomy');
+var ctrl = new autonomy.Controller(client, {debug: false});
 require('dronestream').listen(server);
 
 server.listen(port, function () {
@@ -15,12 +19,31 @@ server.listen(port, function () {
 
 app.use(express.static(__dirname + '/public'));
 
-client.config('general:navdata_demo', 'FALSE');
+function navdata_option_mask(c) {
+	return 1 << c;
+}
+var navdata_options = (
+	navdata_option_mask(arDroneConstants.options.DEMO)
+	| navdata_option_mask(arDroneConstants.options.VISION_DETECT)
+	| navdata_option_mask(arDroneConstants.options.MAGNETO)
+	| navdata_option_mask(arDroneConstants.options.WIFI)
+);
+	  
+client.config('general:navdata_demo', true);
+client.config('general:navdata_options', navdata_options);
+client.config('video_channel', 1);
+client.config('detext:detext_type', 12);
 //client.on('navdata', handleNav);
+
+ctrl.on('controlData', handleData);
 
 function handleNav(data) {
 	if(!data.altitude) { return; }
 	console.log(data.altitude.raw);
+}
+
+function handleData(data) {
+	io.sockets.emit('data', data);	
 }
 
 io.on('connection', function (socket) {
@@ -36,27 +59,33 @@ io.on('connection', function (socket) {
   	socket.on('L', rotright); 
   	socket.on(' ', stop); 
   	socket.on('C', camera); 
+	socket.on('Z',zero);
 });
 
 
 var $cam = 0;
 var $speed = 0.1;
+var $ang = 10;
 
 function log(str) {
 	console.log(str);
 }
-
 function takeoff(){
   	client.takeoff();
   	log('takeoff');
 }
+function zero(){
+  	ctrl.zero();
+  	log('zero');
+}
+
 function land() {
 	client.stop();
 	client.land();
 	log('land');
 }
 function stop() {
-	client.stop();
+	ctrl.hover();
 	log('stop');
 }
 function camera() {
@@ -65,34 +94,34 @@ function camera() {
 	log('camera');
 }
 function forward() {
-	client.front($speed);
+	ctrl.forward($speed);
 	log('forward');
 }
 function backward() {
-	client.back($speed);
+	ctrl.backward($speed);
 	log('backward');
 }
 function left() {
-	client.left($speed);
+	ctrl.left($speed);
 	log('left');
 }
 function right() {
-	client.right($speed);
+	ctrl.right($speed);
 	log('right');
 }
 function up() {
-	client.up($speed);
+	ctrl.up($speed);
 	log('up');
 }
 function down() {
-	client.down($speed);
+	ctrl.down($speed);
 	log('down');
 }
 function rotleft() {
-	client.counterClockwise($speed);
+	ctrl.ccw($ang);
 	log('rotleft');
 }
 function rotright() {
-	client.clockwise($speed);
+	ctrl.cw($ang);
 	log('rotright');
 }
