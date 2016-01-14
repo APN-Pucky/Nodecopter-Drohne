@@ -1,0 +1,9 @@
+﻿Probleme Lösung	
+Videostream
+Zuerst haben wir das Modul ar-drone-png-stream verwendet um einzelne PNG-Bilder an den Browser zu übertragen, jedoch hat sich gezeigt, dass die Übertragung eine Verzögerung von etwa 2 Sekunden hatte. Deshalb haben wir das komplexere/umfabngreichere??? Module dronestream implementiert.
+Kamerafokus
+Während der Testens der Drohne (Kapitel Link) ist uns aufgefallen, dass das Kamerabild in weiter Entfernung sehr schlecht war. Nach etwas Recherche haben wir herausgefunden das die Linse der Frontkamera von Parrot(r) falsch eingestellt worden ist. Diese konnte man verstellen, nachdem man den Klebstoff, der zum festhalten der Linse gedacht ist, entfernt hat.
+(-!IMG)
+Zusammenfassung
+In der Arbeit wurde eine die Ansteuerung des Quadrokopters realisiert. Die Implementation einer dreidimensionalen Darstellung konnte noch nicht realisiert werden, da das Sonar der Drohne nicht nach vorne abgelenkt werden konnte.  Dennoch wird in naher Zukunft, die Erweiterung der Drohne um ein Raspberry-Pi und einen Sonarsensor in Betracht gezogen.
+Die Raumanalyse erfordert deshalb auch mehr menschliche Interaktion als geplant war. Sie besteht aus der Auswertung und Präsentation von Bildern. Der Grundschnitt eines Raumes kann durch die Drohne auch dargestellt werden insofern man die Ränder des Raumes abgeflogen hat.  
