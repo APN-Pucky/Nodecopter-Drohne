@@ -10,8 +10,6 @@
 	this.setupCanvas();
 	this.x = this.width/2;
 	this.y = this.height/2;
-	this.ctx.fillStyle = "rgb(0,0,0)";
-        this.ctx.strokeStyle = "rgb(0,0,0)";
 	this.ctx.font = "10px Arial";
 	this.ctx.fillText("1 m",5,10);
 	this.ctx.moveTo(5,15);
@@ -21,10 +19,8 @@
 	this.ctx.moveTo(zoom+5,15);
 	this.ctx.lineTo(zoom+5,25);
 	this.ctx.stroke();
-	this.ctx.fillStyle = "rgb(0,255,0)";
-        this.ctx.strokeStyle = "rgb(0,255,0)";
 	this.ctx.moveTo(this.x,this.y);
-	//this.update(1,1);
+	this.update(0,0);
 	//this.update(3,2);
 	//this.update(-1,3);
 	//this.update(1,2);
@@ -49,8 +45,11 @@
     };
 
     NodecopterTrack.prototype.update = function(x,y) {
+	this.ctx.strokeStyle = "rgb(0,255,0)";
 	this.ctx.lineTo(this.x+(x*zoom),this.y-(y*zoom));
 	this.ctx.stroke();
+	this.ctx.strokeStyle = "rgb(0,0,0)";
+	this.ctx.strokeRect(this.x+(x*zoom),this.y-(y*zoom),0.4*zoom,0.4*zoom);
     };
 
     window.NodecopterTrack = NodecopterTrack;
