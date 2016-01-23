@@ -1,6 +1,6 @@
 var LPORT = 3071;
 var RPORT = 3072;
-var RHOST = '127.0.0.1';
+var RHOST = '192.168.0.110';
 
 
 var dgram = require('dgram');
@@ -8,13 +8,6 @@ var bind = new Buffer('bind');
 var stop = new Buffer('stop');
 
 var socket = dgram.createSocket('udp4');
-
-process.on('SIGINT', function() {
-	console.log("SIGINT");
-	send(stop);
-	socket.close();
-	process.exit();
-});
 
 function send(msg) {
 	socket.send(msg, 0, msg.length, RPORT, RHOST);
