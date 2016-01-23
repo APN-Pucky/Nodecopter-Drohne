@@ -13,6 +13,8 @@ var autonomy = require('ardrone-autonomy');
 var ctrl = new autonomy.Controller(client, {debug: false});
 require('dronestream').listen(server);
 
+require("./udpclient.js")('192.168.0.110',function(data){console.log(""+ data);io.sockets.emit('sonar', data); });
+
 server.listen(port, function () {
   console.log('Server listening at port %d', port);
 });
@@ -33,14 +35,8 @@ client.config('general:navdata_demo', true);
 client.config('general:navdata_options', navdata_options);
 client.config('video_channel', 1);
 client.config('detext:detext_type', 12);
-//client.on('navdata', handleNav);
 
 ctrl.on('controlData', handleData);
-
-function handleNav(data) {
-	if(!data.altitude) { return; }
-	console.log(data.altitude.raw);
-}
 
 function handleData(data) {
 	io.sockets.emit('data', data);	

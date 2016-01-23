@@ -29,6 +29,9 @@
 		//state[state.length] = data.state;
 		tracker.update(data.state.y,data.state.x);
   	});	
+	io().on('sonar', function (data) {
+		tracker.sonar(data);
+  	});
     };
 
     NodecopterTrack.prototype.setupCanvas = function () {
@@ -52,6 +55,9 @@
 	this.ctx.strokeRect(this.x+(x*zoom),this.y-(y*zoom),0.4*zoom,0.4*zoom);
     };
 
+     NodecopterTrack.prototype.sonar = function(sonar) {
+	//none till now
+    };
     window.NodecopterTrack = NodecopterTrack;
 
 }(window, document, undefined));
