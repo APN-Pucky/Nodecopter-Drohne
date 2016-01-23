@@ -1,12 +1,20 @@
 {
   "name" : "Nodecopter-Drohne",
   "description" : "JuFo Projekt",
-  "homepage" : "",
+  "homepage" : "https://github.com/APN-Pucky/Nodecopter-Drohne",
   "keywords" : [],
-  "author" : "APNPucky",
-  "contributors" :[],
+  "author" : "APNPucky <APN-Pucky@users.noreply.github.com>",
+  "contributors" :[
+	{
+		"name": "dfb159",
+		"email": ""
+	}],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:APN-Pucky/Nodecopter-Drohne.git"
+  }
   "dependencies" : ["socket.io","express","ar-drone","dronestream","ardrone-autonomy"],
-  "main" : "underscore.js",
-  "version" : "0.0.1",
+  "main" : "app.js",
+  "version" : "0.0.2",
   "license" : "GPLv2"
 }
