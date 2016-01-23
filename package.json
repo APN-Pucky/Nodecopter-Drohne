@@ -12,8 +12,8 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:APN-Pucky/Nodecopter-Drohne.git"
-  }
-  "dependencies" : ["socket.io","express","ar-drone","dronestream","ardrone-autonomy"],
+  },
+  "dependencies" : ["socket.io","express","ar-drone","dronestream","ardrone-autonomy","readline","math-statistics","r-pi-usonic"],
   "main" : "app.js",
   "version" : "0.0.2",
   "license" : "GPLv2"
