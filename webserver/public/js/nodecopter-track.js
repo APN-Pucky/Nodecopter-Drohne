@@ -57,6 +57,7 @@
 
      NodecopterTrack.prototype.sonar = function(sonar) {
 	//none till now
+
     };
     window.NodecopterTrack = NodecopterTrack;
 
