@@ -19,3 +19,7 @@ Außerdem war der Stream über einen klassischen PNG-Stream zeitlich verzögert,
 ￼<16:35:32> "Joey": Das größte Problem stellt allerdings die Entfernungsmessung dar.
 Ursprünglich war geplant, den Ultraschallsensor nach vorne auszurichten, dann flog die Drohne jedoch nicht mehr richtig.
 Wir haben ein Raspberry-Pi und einen weiteren Ultraschallsensor mit der Drohne verbunden, um sowohl die Flughöhe, als auch die Entfernung nach Vorne zu erhalten.
+
+
+
+---------—
