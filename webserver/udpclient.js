@@ -21,7 +21,7 @@ socket.on('listening', function () {
 
 socket.on('message', function (message, remote) {
     //console.log(remote.address + ':' + remote.port +' - ' + message);
-    if(remote.address == RHOST)handler(parseFloat(message));
+    if(remote.address == RHOST)handler(message);
 });
 
 
@@ -31,4 +31,3 @@ module.exports = function(host,func){
 	socket.bind(LPORT);
 	send(bind);
 };
-

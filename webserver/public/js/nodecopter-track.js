@@ -10,6 +10,8 @@
 	this.setupCanvas();
 	this.x = this.width/2;
 	this.y = this.height/2;
+    this.curx = x;
+    this.cury = y;  
 	this.ctx.font = "10px Arial";
 	this.ctx.fillText("1 m",5,10);
 	this.ctx.moveTo(5,15);
@@ -27,7 +29,7 @@
 	var tracker = this;
 	io().on('data', function (data) {
 		//state[state.length] = data.state;
-		tracker.update(data.state.y,data.state.x);
+		tracker.update(data.state);
   	});	
 	io().on('sonar', function (data) {
 		tracker.sonar(data);
@@ -47,16 +49,21 @@
         this.ctx = this.canvas.getContext('2d');
     };
 
-    NodecopterTrack.prototype.update = function(x,y) {
-	this.ctx.strokeStyle = "rgb(0,255,0)";
-	this.ctx.lineTo(this.x+(x*zoom),this.y-(y*zoom));
-	this.ctx.stroke();
-	this.ctx.strokeStyle = "rgb(0,0,0)";
-	this.ctx.strokeRect(this.x+(x*zoom),this.y-(y*zoom),0.4*zoom,0.4*zoom);
+    NodecopterTrack.prototype.update = function(state) {
+      	this.ctx.moveTo(curx,cury);
+    	this.curx = state.x;
+    	this.cury = state.y;  
+		this.ctx.strokeStyle = "rgb(0,255,0)";
+		this.ctx.lineTo(this.x+(curx*zoom),this.y-(cury*zoom));
+		this.ctx.stroke();
+		//this.ctx.strokeStyle = "rgb(0,0,0)";
+		//this.ctx.strokeRect(this.x+(curx*zoom),this.y-(cury*zoom),0.4*zoom,0.4*zoom);
     };
 
      NodecopterTrack.prototype.sonar = function(sonar) {
-	//none till now
+		//rotate
+       this.ctx.arc(this.curx, this.cury+ parseFloat(sonar.split(':')[1]), 5, 0, 2*Math.PI);
+       	this.ctx.stroke();
 
     };
     window.NodecopterTrack = NodecopterTrack;
