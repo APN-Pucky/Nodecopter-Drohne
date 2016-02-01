@@ -12,6 +12,7 @@
 	this.y = this.height/2;
     this.curx = x;
     this.cury = y;  
+    this.curyaw = 0;  
 	this.ctx.font = "10px Arial";
 	this.ctx.fillText("1 m",5,10);
 	this.ctx.moveTo(5,15);
@@ -53,6 +54,7 @@
       	this.ctx.moveTo(curx,cury);
     	this.curx = state.x;
     	this.cury = state.y;  
+      	this.curyaw = state.yaw;
 		this.ctx.strokeStyle = "rgb(0,255,0)";
 		this.ctx.lineTo(this.x+(curx*zoom),this.y-(cury*zoom));
 		this.ctx.stroke();
@@ -62,7 +64,8 @@
 
      NodecopterTrack.prototype.sonar = function(sonar) {
 		//rotate
-       this.ctx.arc(this.curx, this.cury+ parseFloat(sonar.split(':')[1]), 5, 0, 2*Math.PI);
+       var dist = parseFloat(sonar.split(':')[2]);
+       this.ctx.arc(this.curx +Math.cos(yaw)*dist, this.cury+ Math.sin(yaw)*dist, 5, 0, 2*Math.PI);
        	this.ctx.stroke();
 
     };
