@@ -44,6 +44,7 @@ var startSensors = function()
         rate: 5,
 	direction: 0 //front
       });
+
       initSensor({
         echoPin: 20,
         triggerPin: 16,
@@ -68,6 +69,7 @@ var startSensors = function()
         rate: 5,
 	direction: 3 //right
       });
+
 }
 
 
