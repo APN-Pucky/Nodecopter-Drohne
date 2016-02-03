@@ -51,7 +51,7 @@ var startSensors = function()
         timeout: 750,//µs
         delay: 60,//ms
         rate: 5,
-	direction: 1 //back
+	direction: 1 //right
       });
       initSensor({
         echoPin: 27,
@@ -59,7 +59,7 @@ var startSensors = function()
         timeout: 750,//µs
         delay: 60,//ms
         rate: 5,
-	direction: 2 //left
+	direction: 2 //back
       });
       initSensor({
         echoPin: 26,
@@ -67,7 +67,7 @@ var startSensors = function()
         timeout: 750,//µs
         delay: 60,//ms
         rate: 5,
-	direction: 3 //right
+	direction: 3 //left
       });
 
 }

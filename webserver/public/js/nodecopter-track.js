@@ -3,6 +3,7 @@
 (function (window, document, undefined) {
     'use strict';
     var NodecopterTrack,
+	radius =10,
 	zoom = 100;
     //var state = []; 
     NodecopterTrack = function(div) {
@@ -10,9 +11,9 @@
 	this.setupCanvas();
 	this.x = this.width/2;
 	this.y = this.height/2;
-    this.curx = x;
-    this.cury = y;  
-    this.curyaw = 0;  
+    	this.curx = 0;
+    	this.cury = 0;  
+    	this.curyaw = 0;  
 	this.ctx.font = "10px Arial";
 	this.ctx.fillText("1 m",5,10);
 	this.ctx.moveTo(5,15);
@@ -23,7 +24,8 @@
 	this.ctx.lineTo(zoom+5,25);
 	this.ctx.stroke();
 	this.ctx.moveTo(this.x,this.y);
-	this.update(0,0);
+	//this.update(0,0);
+
 	//this.update(3,2);
 	//this.update(-1,3);
 	//this.update(1,2);
@@ -51,21 +53,24 @@
     };
 
     NodecopterTrack.prototype.update = function(state) {
-      	this.ctx.moveTo(curx,cury);
+      	this.ctx.moveTo(this.x+this.curx*zoom,this.y-this.cury*zoom);
     	this.curx = state.x;
     	this.cury = state.y;  
       	this.curyaw = state.yaw;
-		this.ctx.strokeStyle = "rgb(0,255,0)";
-		this.ctx.lineTo(this.x+(curx*zoom),this.y-(cury*zoom));
-		this.ctx.stroke();
-		//this.ctx.strokeStyle = "rgb(0,0,0)";
-		//this.ctx.strokeRect(this.x+(curx*zoom),this.y-(cury*zoom),0.4*zoom,0.4*zoom);
+	this.ctx.strokeStyle = "rgb(0,255,0)";
+	this.ctx.lineTo(this.x+(this.curx*zoom),this.y-(this.cury*zoom));
+	this.ctx.stroke();
+	//this.ctx.strokeStyle = "rgb(0,0,0)";
+	//this.ctx.strokeRect(this.x+(this.curx*zoom),this.y-(this.cury*zoom),0.4*zoom,0.4*zoom);
     };
 
      NodecopterTrack.prototype.sonar = function(sonar) {
-		//rotate
-       var dist = parseFloat(sonar.split(':')[2]);
-       this.ctx.arc(this.curx +Math.cos(yaw)*dist, this.cury+ Math.sin(yaw)*dist, 5, 0, 2*Math.PI);
+	//rotate
+	//this.ctx.strokeStyle = "rgb(255,0,0)";
+       	var dist = parseFloat(sonar.split(':')[1]);
+	var yaw = this.curyaw+parseInt(sonar.split(':')[0])*90;
+	this.ctx.moveTo(this.x+(this.curx +Math.sin(yaw)*dist)*zoom+radius,this.y-(this.cury+Math.cos(yaw)*dist)*zoom);
+       	this.ctx.arc(this.x+(this.curx +Math.sin(yaw)*dist)*zoom,this.y-(this.cury+Math.cos(yaw)*dist)*zoom,radius, 0, 2*Math.PI);
        	this.ctx.stroke();
 
     };
