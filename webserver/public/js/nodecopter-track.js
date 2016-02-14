@@ -54,8 +54,8 @@
 
     NodecopterTrack.prototype.update = function(state) {
       	this.ctx.moveTo(this.x+this.curx*zoom,this.y-this.cury*zoom);
-    	this.curx = state.x;
-    	this.cury = state.y;  
+    	this.cury = state.x;
+    	this.curx = state.y;  
       	this.curyaw = state.yaw;
 	this.ctx.strokeStyle = "rgb(0,255,0)";
 	this.ctx.lineTo(this.x+(this.curx*zoom),this.y-(this.cury*zoom));
