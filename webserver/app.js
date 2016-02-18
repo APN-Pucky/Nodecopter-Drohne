@@ -13,7 +13,7 @@ var autonomy = require('ardrone-autonomy');
 var ctrl = new autonomy.Controller(client, {debug: false});
 require('dronestream').listen(server);
 
-require("./udpclient.js")('192.168.0.110',function(data){console.log(""+ data);io.sockets.emit('sonar', ""+data); });
+require("./udpclient.js")('192.168.1.2',function(data){console.log(""+ data);io.sockets.emit('sonar', ""+data); });
 
 server.listen(port, function () {
   console.log('Server listening at port %d', port);
@@ -60,7 +60,7 @@ io.on('connection', function (socket) {
 
 
 var $cam = 0;
-var $speed = 0.1;
+var $speed = 0.5;
 var $ang = 10;
 
 function log(str) {
