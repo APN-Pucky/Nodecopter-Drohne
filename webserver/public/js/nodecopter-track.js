@@ -17,9 +17,8 @@
 	this.ctx.beginPath();
 	this.ctx.font = "10px Arial";
 	this.ctx.fillText("1 m",5,10);
-	this.ctx.strokeStyle = "rgb(0,0,0)";
 	this.ctx.beginPath();
-	this.ctx.
+	this.ctx.strokeStyle = "rgb(0,0,0)";
 	this.ctx.moveTo(5,15);
 	this.ctx.lineTo(5,25);
 	this.ctx.moveTo(5,20);
@@ -77,8 +76,11 @@
 	this.ctx.strokeStyle = "rgb(0,0,255)";
        	var dist = parseFloat(sonar.split(':')[1]);
 	var yaw = this.curyaw+parseInt(sonar.split(':')[0])*90;
-	this.ctx.moveTo(this.x+(this.curx +Math.sin(yaw)*dist)*zoom+radius,this.y-(this.cury+Math.cos(yaw)*dist)*zoom);
-       	this.ctx.arc(this.x+(this.curx +Math.sin(yaw)*dist)*zoom,this.y-(this.cury+Math.cos(yaw)*dist)*zoom,radius, 0, 2*Math.PI);
+	if(dist > 0.2 && dist < 5) 
+	{
+		this.ctx.moveTo(this.x+(this.curx +Math.sin(yaw)*dist)*zoom+radius,this.y-(this.cury+Math.cos(yaw)*dist)*zoom);
+       		this.ctx.arc(this.x+(this.curx +Math.sin(yaw)*dist)*zoom,this.y-(this.cury+Math.cos(yaw)*dist)*zoom,radius, 0, 2*Math.PI);
+	}
        	this.ctx.stroke();
 
     };
