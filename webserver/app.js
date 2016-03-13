@@ -60,7 +60,7 @@ io.on('connection', function (socket) {
 
 
 var $cam = 0;
-var $speed = 0.5;
+var $speed = 0.25;
 var $ang = 10;
 
 function log(str) {
